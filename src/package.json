@@ -1,0 +1,22 @@
+{
+  "name": "valhalla-ftp",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaloyanIT/Valhalla-FTP.git"
+  },
+  "author": "KaloyanIT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KaloyanIT/Valhalla-FTP/issues"
+  },
+  "homepage": "https://github.com/KaloyanIT/Valhalla-FTP#readme",
+  "devDependencies": {
+    "electron": "^4.0.3"
+  }
+}

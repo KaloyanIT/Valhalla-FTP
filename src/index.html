@@ -5,9 +5,15 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+      <div class="main-navigation">
+          <input type="text" name="Host"/>
+          <input type="text" name="Username"/>
+          <input type="text" name="Password"/>
+          <input type="text" name="Port"/>        
+        </div>
+        <div class="source-fileSystem">
+            <button onclick="loadFiles()">OpenFiles</button>
+        </div>
+        <script src="./file.js"></script>
   </body>
 </html>

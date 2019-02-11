@@ -4,21 +4,21 @@ require('electron-reload')(__dirname, {
     electron: require(`../node_modules/electron`)
 });
 
-
-
-
-
-let win;
+let mainWindow;
 
 function createWindow() {
-    win = new BrowserWindow({width: 800, height: 600});
+    mainWindow = new BrowserWindow({width: 1200, height: 800 , webPreferences: {
+      nodeIntegration: true
+  }});
 
-    win.loadFile('src/index.html');
+    mainWindow.loadFile('src/index.html');
 
-    win.webContents.openDevTools();
+    mainWindow.webContents.pre
+
+    mainWindow.webContents.openDevTools();
     
-    win.on('closed', () => {
-        win = null;
+    mainWindow.on('closed', () => {
+        mainWindow = null;
     })
   }
 
@@ -31,7 +31,7 @@ function createWindow() {
   })
   
   app.on('activate', () => {
-    if (win === null) {
+    if (mainWindow === null) {
       createWindow()
     }
   })

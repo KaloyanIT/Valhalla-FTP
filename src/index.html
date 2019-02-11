@@ -3,17 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   </head>
   <body>
-      <div class="main-navigation">
-          <input type="text" name="Host"/>
-          <input type="text" name="Username"/>
-          <input type="text" name="Password"/>
-          <input type="text" name="Port"/>        
-        </div>
-        <div class="source-fileSystem">
-            <button onclick="loadFiles()">OpenFiles</button>
-        </div>
-        <script src="./file.js"></script>
-  </body>
+    <div class="container">
+      <div class="main-navigation input-group row">
+        <input type="text" class="form-control" placeholder="Host" name="Host"/>
+        <input type="text" class="form-control" placeholder="Username" name="Username"/>
+        <input type="text" class="form-control" placeholder="Password" name="Password"/>
+        <input type="text" class="form-control" placeholder="Port" name="Port"/>        
+        <input type="button" class="btn btn-danger" value="Quickconnect"/>
+      </div>
+      <div class="source-fileSystem row">
+        <button onclick="loadFiles()">OpenFiles</button>
+        <ul class="drives">
+
+        </ul>
+      </div>
+    </div>
+      <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" defer="defer" src="./file.js"></script>
+  </body> 
 </html>

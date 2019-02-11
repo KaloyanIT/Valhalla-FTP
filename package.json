@@ -20,5 +20,9 @@
     "drivelist": "^7.0.1",
     "electron": "^4.0.3",
     "electron-reload": "^1.4.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.0",
+    "jquery": "^3.3.1"
   }
 }

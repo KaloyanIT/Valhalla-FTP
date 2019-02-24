@@ -1,14 +1,6 @@
-const path = require("path");
-const fs = require("fs");
-const util = require("util");
+const path = require('path');
+const fs = require('fs');
 const $ = require('jquery')
-let spawn = require("child_process").spawn;
-console.log(path.resolve('This PC'))
-var os = require("os");
-var root = (os.platform() == "win32") ? process.cwd().split(path.sep)[0] : "/"
-console.log(root);
-// let rootDirs = [];
-let rootDirs = [];
 let $lastClickedLi = ''
 const { ipcRenderer } = require('electron')
 
@@ -55,7 +47,7 @@ ipcRenderer.on('getFilesForPathReply', (event, args) => {
   
   for(let i = 0; i < args.length; i++) {
     let currPath = path.join($lastClickedLi.data('path'), args[i])
-    elements += `<li data-path="${currPath}">${args[i]}</li>`
+    elements += createLiFileElement(currPath, args[i])
   }
   elements += '</ul>';
   console.log(elements)
@@ -69,19 +61,21 @@ function displayDrives(drives) {
   let directoriesUlClass = '.drives';
 
   console.log('display drives', drives);
-	let element = ''
-  for(let i = 0; i < drives.length; i++) {
-	  element += `<li data-path="${drives[i]}">${drives[i]}</li>`
-  }
+	let element = createLiListForFileNames(drives);
 
   $(directoriesUlClass).html(element)
 }
 
-function getFiles() {
-  fs.readdir("\\", function(err, items) {
-    console.log(items);
-    console.log(__dirname);
-  });
+function createLiListForFileNames(fileNames) {
+  let element = '';
+  for(let i = 0; i < fileNames.length; i++) {
+    let currName = fileNames[i];
+	  element += createLiFileElement(currName, currName)
+  }
+
+  return element;
 }
 
-function getDrives() {}
+function createLiFileElement(path, displayName) {
+  return `<li data-path="${path}">${displayName}</li>`
+}

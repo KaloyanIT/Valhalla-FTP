@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "eslint": ".\\node_modules\\.bin\\eslint ."
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,10 @@
     "drivelist": "^7.0.1",
     "electron": "^4.0.3",
     "electron-rebuild": "^1.8.4",
-    "electron-reload": "^1.4.0"
+    "electron-reload": "^1.4.0",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   },
   "dependencies": {
     "bootstrap": "^4.3.0",

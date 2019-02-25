@@ -7,12 +7,12 @@
   </head>
   <body>
     <div class="container">
-      <div class="main-navigation input-group row">
-        <input type="text" class="form-control" placeholder="Host" name="Host"/>
-        <input type="text" class="form-control" placeholder="Username" name="Username"/>
-        <input type="text" class="form-control" placeholder="Password" name="Password"/>
-        <input type="text" class="form-control" placeholder="Port" name="Port"/>        
-        <input type="button" class="btn btn-danger" value="Quickconnect"/>
+      <div class="main-navigation input-group quick-connect-container row">
+        <input type="text" class="form-control qc-name" placeholder="Host" name="Host"/>
+        <input type="text" class="form-control qc-username" placeholder="Username" name="Username"/>
+        <input type="text" class="form-control qc-password" placeholder="Password" name="Password"/>
+        <input type="text" class="form-control qc-port" placeholder="Port" name="Port"/>
+        <input type="button" class="btn btn-danger qc-btn" value="Quickconnect"/>
       </div>
       <div class="source-fileSystem row">
         <button class="load-files-btn col-md-2">OpenFiles</button>
@@ -24,5 +24,5 @@
     </div>
       <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
       <script type="text/javascript" defer="defer" src="./file.js"></script>
-  </body> 
+  </body>
 </html>

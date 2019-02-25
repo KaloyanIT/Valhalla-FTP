@@ -14,6 +14,8 @@ module.exports = {
     },
     "rules": {
         "linebreak-style": ["error", "windows"],
-        "import/no-extraneous-dependencies": "off"
+        "import/no-extraneous-dependencies": "off",
+        "no-plusplus": "off",
+        "no-param-reassign": "off"
     }
 };

@@ -1,12 +1,36 @@
 const path = require('path');
 const $ = require('jquery');
 const { ipcRenderer } = require('electron');
+const jsftp = require('jsftp');
 
 let $lastClickedLi = '';
 
 
-function readFilesOnPath(path) {
-  ipcRenderer.send('getFilesForPath', path);
+function readFilesOnPath(filePath) {
+  ipcRenderer.send('getFilesForPath', filePath);
+}
+
+function createLiFileElement(filePath, displayName) {
+  return `<li data-path="${filePath}">${displayName}</li>`;
+}
+
+function createLiListForFileNames(fileNames) {
+  let element = '';
+  for (let i = 0; i < fileNames.length; i++) {
+    const currName = fileNames[i];
+    element += createLiFileElement(currName, currName);
+  }
+
+  return element;
+}
+
+function displayDrives(drives) {
+  const directoriesUlClass = '.drives';
+  console.log(drives)
+
+  const element = createLiListForFileNames(drives);
+
+  $(directoriesUlClass).html(element);
 }
 
 ipcRenderer.on('getFilesForPathReply', (event, args) => {
@@ -21,33 +45,8 @@ ipcRenderer.on('getFilesForPathReply', (event, args) => {
     elements += createLiFileElement(currPath, args[i]);
   }
   elements += '</ul>';
-  console.log(elements);
   $lastClickedLi.append(elements);
 });
-
-function displayDrives(drives) {
-  // let filesContainerClass = ".source-fileSystem";
-  const directoriesUlClass = '.drives';
-
-  console.log('display drives', drives);
-  const element = createLiListForFileNames(drives);
-
-  $(directoriesUlClass).html(element);
-}
-
-function createLiListForFileNames(fileNames) {
-  let element = '';
-  for (let i = 0; i < fileNames.length; i++) {
-    const currName = fileNames[i];
-	  element += createLiFileElement(currName, currName);
-  }
-
-  return element;
-}
-
-function createLiFileElement(path, displayName) {
-  return `<li data-path="${path}">${displayName}</li>`;
-}
 
 function invokeDirectoryContent(ev) {
   const filePath = $(ev.target).attr('data-path');
@@ -65,10 +64,66 @@ function invokeDirectoryContent(ev) {
 
 function loadFiles() {
   const driveNames = ipcRenderer.sendSync('getDriveList', '');
-  // readFilesOnPath(driveNames[0])
   displayDrives(driveNames);
 }
 
 $('.source-fileSystem').on('click', '.load-files-btn', loadFiles);
 
 $('.drives').on('click', 'li', invokeDirectoryContent);
+
+const quickContainerClass = '.quick-connect-container';
+const usernameInputClass = '.qc-username';
+const passwordInputClass = '.qc-password';
+const hostInputClass = '.qc-host';
+const portInputClass = '.qc-port';
+const quickButtonClass = '.qc-btn';
+
+function validatePort(port) {
+  const portNumber = parseInt(port, 10);
+
+  if (portNumber < 0 || portNumber > 65535) {
+    return false;
+  }
+
+  return true;
+}
+
+function quickConnectEvent(ev) {
+  const username = $(usernameInputClass).val();
+  const host = $(hostInputClass).val();
+  const port = $(portInputClass).val();
+  const password = $(passwordInputClass).val();
+
+  //Validation
+  if(!validatePort(port)) {
+    //add validation
+  }
+
+  let data = {
+    host,
+    user: username,
+    pass: password,
+    port
+  };
+
+  const Ftp = new jsftp(data)
+
+  let files = [];
+  Ftp.ls('.', (err, res) => {
+    // files.push(file.name);
+    console.log(err)
+    res.forEach((file) => {
+      files.push(file.name)
+      console.log(file.name)
+    });
+  });
+
+    console.log('files', files);
+  const elements = createLiListForFileNames(files);
+  console.log(elements)
+
+  $('.drives').html(elements)
+
+}
+
+$(quickContainerClass).on('click', quickButtonClass, quickConnectEvent);

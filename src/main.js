@@ -1,6 +1,4 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const drivelist = require('drivelist');
-const path = require('path');
 const fs = require('fs');
 
 require('electron-reload')(__dirname, {
@@ -19,8 +17,6 @@ function createWindow() {
   });
 
   mainWindow.loadFile('src/index.html');
-
-  mainWindow.webContents.pre;
 
   mainWindow.webContents.openDevTools();
 
@@ -43,7 +39,7 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('getDriveList', (event, arg) => {
+ipcMain.on('getDriveList', (event) => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const drives = [];
 
@@ -62,7 +58,6 @@ ipcMain.on('getDriveList', (event, arg) => {
 
 ipcMain.on('getFilesForPath', (event, args) => {
   const currPath = args;
-  console.log(event);
 
   fs.readdir(currPath, (err, files) => {
     event.sender.send('getFilesForPathReply', files);
